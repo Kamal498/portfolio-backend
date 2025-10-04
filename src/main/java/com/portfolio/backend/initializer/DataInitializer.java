@@ -5,6 +5,7 @@ import com.portfolio.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,18 +24,63 @@ public class DataInitializer implements CommandLineRunner {
     private final SkillRepository skillRepository;
     private final ExperienceRepository experienceRepository;
     private final EducationRepository educationRepository;
+    private final Environment environment;
 
     @Override
     public void run(String... args) {
-        log.info("Starting data initialization...");
+        // Skip initialization in production environment
+        String[] activeProfiles = environment.getActiveProfiles();
+        boolean isProduction = Arrays.asList(activeProfiles).contains("prod");
         
-        initializePersonalInfo();
-        initializeSkills();
-        initializeProjects();
-        initializeAchievements();
-        initializeExperiences();
-        initializeEducation();
-        initializeBlogs();
+        if (isProduction) {
+            log.info("Production environment detected - skipping data initialization");
+            return;
+        }
+        
+        log.info("Development environment - starting data initialization...");
+        
+        // Only initialize if database is empty
+        if (personalInfoRepository.count() == 0) {
+            initializePersonalInfo();
+        } else {
+            log.info("Personal info already exists, skipping initialization");
+        }
+        
+        if (skillRepository.count() == 0) {
+            initializeSkills();
+        } else {
+            log.info("Skills already exist, skipping initialization");
+        }
+        
+        if (projectRepository.count() == 0) {
+            initializeProjects();
+        } else {
+            log.info("Projects already exist, skipping initialization");
+        }
+        
+        if (achievementRepository.count() == 0) {
+            initializeAchievements();
+        } else {
+            log.info("Achievements already exist, skipping initialization");
+        }
+        
+        if (experienceRepository.count() == 0) {
+            initializeExperiences();
+        } else {
+            log.info("Experiences already exist, skipping initialization");
+        }
+        
+        if (educationRepository.count() == 0) {
+            initializeEducation();
+        } else {
+            log.info("Education already exists, skipping initialization");
+        }
+        
+        if (blogRepository.count() == 0) {
+            initializeBlogs();
+        } else {
+            log.info("Blogs already exist, skipping initialization");
+        }
         
         log.info("Data initialization completed!");
     }
