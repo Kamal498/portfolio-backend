@@ -1,10 +1,16 @@
 #!/bin/bash
+set -e  # Exit on error
 
-# Configuration
-PROJECT_ID="YOUR_PROJECT_ID"
+echo "=== Cloud Run Deployment Script ==="
+echo ""
+
+# Configuration - Update these values
+read -p "Enter GCP Project ID: " PROJECT_ID
 REGION="us-central1"
 SERVICE_NAME="portfolio-backend"
-DB_CONNECTION_NAME="$PROJECT_ID:$REGION:portfolio-db"
+INSTANCE_NAME="portfolio-db"
+DB_NAME="portfoliodb"
+DB_USER="postgres"
 
 # Set project
 gcloud config set project $PROJECT_ID

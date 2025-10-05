@@ -14,15 +14,26 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
+# Create non-root user for security
+RUN addgroup -S spring && adduser -S spring -G spring
+
 # Copy jar from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Add Cloud SQL Proxy for secure database connection
-ADD https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 /cloud_sql_proxy
-RUN chmod +x /cloud_sql_proxy
+# Change ownership to non-root user
+RUN chown spring:spring app.jar
+
+# Switch to non-root user
+USER spring:spring
 
 # Expose port
 EXPOSE 8080
 
-# Run application (profile set via SPRING_PROFILES_ACTIVE env var)
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run application with production JVM settings
+# Profile set via SPRING_PROFILES_ACTIVE env var
+ENTRYPOINT ["java", \
+  "-XX:+UseContainerSupport", \
+  "-XX:MaxRAMPercentage=75.0", \
+  "-XX:+ExitOnOutOfMemoryError", \
+  "-Djava.security.egd=file:/dev/./urandom", \
+  "-jar", "app.jar"]
