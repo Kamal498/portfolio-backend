@@ -3,7 +3,7 @@ package com.portfolio.backend.service;
 import com.portfolio.backend.dto.BlogDTO;
 import com.portfolio.backend.entity.Blog;
 import com.portfolio.backend.exception.ResourceNotFoundException;
-import com.portfolio.backend.repository.BlogRepository;
+import com.portfolio.backend.provider.BlogDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,38 +17,39 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BlogService {
 
-    private final BlogRepository blogRepository;
+    private final BlogDataProvider blogDataProvider;
     private final ModelMapper modelMapper;
 
     public List<BlogDTO> getAllBlogs() {
-        return blogRepository.findAll().stream()
+        return blogDataProvider.findAll().stream()
                 .map(blog -> modelMapper.map(blog, BlogDTO.class))
                 .collect(Collectors.toList());
     }
 
     public List<BlogDTO> getPublishedBlogs() {
-        return blogRepository.findByPublishedTrueOrderByDateDesc().stream()
+        return blogDataProvider.findByPublishedTrueOrderByDateDesc().stream()
                 .map(blog -> modelMapper.map(blog, BlogDTO.class))
                 .collect(Collectors.toList());
     }
 
     public BlogDTO getBlogById(Long id) {
-        Blog blog = blogRepository.findById(id)
+        Blog blog = blogDataProvider.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Blog not found with id: " + id));
         return modelMapper.map(blog, BlogDTO.class);
     }
 
     public BlogDTO getBlogBySlug(String slug) {
-        Blog blog = blogRepository.findBySlug(slug)
+        Blog blog = blogDataProvider.findBySlug(slug)
                 .orElseThrow(() -> new ResourceNotFoundException("Blog not found with slug: " + slug));
         return modelMapper.map(blog, BlogDTO.class);
     }
 
     public List<BlogDTO> searchBlogs(String query) {
-        return blogRepository.findByTitleContainingIgnoreCaseOrExcerptContainingIgnoreCase(query, query)
-                .stream()
+        return blogDataProvider.findAll().stream()
+                .filter(blog -> blog.getTitle().toLowerCase().contains(query.toLowerCase()) 
+                        || (blog.getExcerpt() != null && blog.getExcerpt().toLowerCase().contains(query.toLowerCase())))
                 .map(blog -> modelMapper.map(blog, BlogDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
@@ -64,13 +65,13 @@ public class BlogService {
             blog.setDate(LocalDateTime.now());
         }
         
-        Blog savedBlog = blogRepository.save(blog);
+        Blog savedBlog = blogDataProvider.save(blog);
         return modelMapper.map(savedBlog, BlogDTO.class);
     }
 
     @Transactional
     public BlogDTO updateBlog(Long id, BlogDTO blogDTO) {
-        Blog existingBlog = blogRepository.findById(id)
+        Blog existingBlog = blogDataProvider.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Blog not found with id: " + id));
 
         existingBlog.setTitle(blogDTO.getTitle());
@@ -82,16 +83,16 @@ public class BlogService {
         existingBlog.setReadTime(blogDTO.getReadTime());
         existingBlog.setPublished(blogDTO.getPublished());
 
-        Blog updatedBlog = blogRepository.save(existingBlog);
+        Blog updatedBlog = blogDataProvider.save(existingBlog);
         return modelMapper.map(updatedBlog, BlogDTO.class);
     }
 
     @Transactional
     public void deleteBlog(Long id) {
-        if (!blogRepository.existsById(id)) {
+        if (!blogDataProvider.existsById(id)) {
             throw new ResourceNotFoundException("Blog not found with id: " + id);
         }
-        blogRepository.deleteById(id);
+        blogDataProvider.deleteById(id);
     }
 
     private String generateSlug(String title) {

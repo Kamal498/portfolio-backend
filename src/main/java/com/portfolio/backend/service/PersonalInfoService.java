@@ -2,7 +2,7 @@ package com.portfolio.backend.service;
 
 import com.portfolio.backend.entity.PersonalInfo;
 import com.portfolio.backend.exception.ResourceNotFoundException;
-import com.portfolio.backend.repository.PersonalInfoRepository;
+import com.portfolio.backend.provider.PersonalInfoDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PersonalInfoService {
 
-    private final PersonalInfoRepository personalInfoRepository;
+    private final PersonalInfoDataProvider personalInfoDataProvider;
 
     public PersonalInfo getPersonalInfo() {
-        return personalInfoRepository.findAll().stream()
-                .findFirst()
+        return personalInfoDataProvider.findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Personal information not found"));
     }
 
@@ -34,6 +33,6 @@ public class PersonalInfoService {
         existing.setTwitterUrl(personalInfo.getTwitterUrl());
         existing.setPortfolioUrl(personalInfo.getPortfolioUrl());
         existing.setResumeUrl(personalInfo.getResumeUrl());
-        return personalInfoRepository.save(existing);
+        return personalInfoDataProvider.save(existing);
     }
 }

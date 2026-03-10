@@ -1,0 +1,97 @@
+{
+  "personalInfo" : {
+    "id" : 1,
+    "name" : "Kamal Pandey",
+    "title" : "Senior Software Engineer",
+    "bio" : "Passionate software engineer with expertise in building scalable web applications.",
+    "email" : "pandeykamal981@gmail.com",
+    "phone" : "---",
+    "location" : "Bangalore India",
+    "avatar" : null,
+    "githubUrl" : "https://github.com/Kamal498",
+    "linkedinUrl" : "https://www.linkedin.com/in/kamal-pandey-22b20617a/",
+    "twitterUrl" : null,
+    "portfolioUrl" : "https://yourportfolio.com",
+    "resumeUrl" : "https://example.com/resume.pdf"
+  },
+  "projects" : [ {
+    "id" : 1,
+    "title" : "E-Commerce Platform",
+    "description" : "A full-featured e-commerce platform with payment integration",
+    "image" : "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&h=300&fit=crop",
+    "tags" : [ "React", "Node.js", "MongoDB", "Stripe" ],
+    "githubUrl" : "https://github.com/yourusername/ecommerce",
+    "demoUrl" : "https://demo.example.com",
+    "featured" : true,
+    "displayOrder" : 1
+  }, {
+    "id" : 2,
+    "title" : "Task Management App",
+    "description" : "Collaborative task management tool with real-time updates",
+    "image" : "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=400&h=300&fit=crop",
+    "tags" : [ "Vue.js", "Firebase", "Tailwind CSS" ],
+    "githubUrl" : "https://github.com/yourusername/taskmanager",
+    "demoUrl" : "https://tasks.example.com",
+    "featured" : true,
+    "displayOrder" : 2
+  } ],
+  "experiences" : [ {
+    "id" : 1,
+    "title" : "Senior Software Engineer",
+    "company" : "Tech Company Inc.",
+    "location" : "San Francisco, CA",
+    "duration" : "2021 - Present",
+    "description" : [ "Led development of microservices architecture serving 1M+ users", "Mentored junior developers and conducted code reviews", "Improved application performance by 40% through optimization" ],
+    "displayOrder" : 1
+  }, {
+    "id" : 2,
+    "title" : "Software Engineer",
+    "company" : "Startup XYZ",
+    "location" : "Remote",
+    "duration" : "2019 - 2021",
+    "description" : [ "Built RESTful APIs using Spring Boot and PostgreSQL", "Implemented CI/CD pipelines with GitHub Actions", "Collaborated with cross-functional teams" ],
+    "displayOrder" : 2
+  } ],
+  "skills" : [ {
+    "id" : 1,
+    "category" : "Frontend",
+    "items" : [ "React", "Vue.js", "TypeScript", "Tailwind CSS", "Next.js" ],
+    "displayOrder" : 1
+  }, {
+    "id" : 2,
+    "category" : "Backend",
+    "items" : [ "Java", "Spring Boot", "Node.js", "Python", "PostgreSQL" ],
+    "displayOrder" : 2
+  }, {
+    "id" : 3,
+    "category" : "DevOps",
+    "items" : [ "Docker", "Kubernetes", "AWS", "GCP", "CI/CD" ],
+    "displayOrder" : 3
+  } ],
+  "education" : [ {
+    "id" : 1,
+    "degree" : "Bachelor of Science in Computer Science",
+    "institution" : "University of Technology",
+    "location" : "San Francisco, CA",
+    "duration" : "2015 - 2019",
+    "gpa" : "3.8/4.0",
+    "displayOrder" : 1
+  } ],
+  "achievements" : [ {
+    "id" : 1,
+    "title" : "AWS Certified Solutions Architect",
+    "organization" : "Amazon Web Services",
+    "date" : "2022",
+    "description" : "Professional level certification for cloud architecture",
+    "icon" : "award",
+    "displayOrder" : 1
+  }, {
+    "id" : 2,
+    "title" : "Hackathon Winner",
+    "organization" : "Tech Conference 2021",
+    "date" : "2021",
+    "description" : "First place in innovation category",
+    "icon" : "trophy",
+    "displayOrder" : 2
+  } ]
+}

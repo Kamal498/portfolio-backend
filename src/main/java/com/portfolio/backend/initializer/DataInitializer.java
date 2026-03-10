@@ -93,7 +93,7 @@ public class DataInitializer implements CommandLineRunner {
         personalInfo.setEmail("your.email@example.com");
         personalInfo.setPhone("+1 (123) 456-7890");
         personalInfo.setLocation("Your City, Country");
-        personalInfo.setAvatar("https://via.placeholder.com/150");
+        personalInfo.setAvatar("https://ui-avatars.com/api/?name=Your+Name&size=150&background=4F46E5&color=fff");
         personalInfo.setGithubUrl("https://github.com/yourusername");
         personalInfo.setLinkedinUrl("https://linkedin.com/in/yourusername");
         personalInfo.setTwitterUrl("https://twitter.com/yourusername");
@@ -128,21 +128,21 @@ public class DataInitializer implements CommandLineRunner {
         List<Project> projects = Arrays.asList(
             createProject("E-Commerce Platform", 
                 "A full-featured e-commerce platform with payment integration, inventory management, and user authentication.",
-                "https://via.placeholder.com/400x300",
+                "https://images.unsplash.com/photo-1557821552-17105176677c?w=400&h=300&fit=crop",
                 Arrays.asList("React", "Node.js", "MongoDB", "Stripe"),
                 "https://github.com/yourusername/project1",
                 "https://project1-demo.com",
                 true, 1),
             createProject("Task Management App",
                 "Real-time collaborative task management application with drag-and-drop functionality.",
-                "https://via.placeholder.com/400x300",
+                "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=400&h=300&fit=crop",
                 Arrays.asList("React", "Firebase", "Material-UI"),
                 "https://github.com/yourusername/project2",
                 "https://project2-demo.com",
                 true, 2),
             createProject("Weather Dashboard",
                 "Beautiful weather dashboard with detailed forecasts and interactive maps.",
-                "https://via.placeholder.com/400x300",
+                "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&h=300&fit=crop",
                 Arrays.asList("React", "OpenWeather API", "Chart.js"),
                 "https://github.com/yourusername/project3",
                 "https://project3-demo.com",

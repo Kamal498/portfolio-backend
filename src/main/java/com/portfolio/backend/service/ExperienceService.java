@@ -1,7 +1,7 @@
 package com.portfolio.backend.service;
 
 import com.portfolio.backend.entity.Experience;
-import com.portfolio.backend.repository.ExperienceRepository;
+import com.portfolio.backend.provider.ExperienceDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExperienceService {
 
-    private final ExperienceRepository experienceRepository;
+    private final ExperienceDataProvider experienceDataProvider;
 
     public List<Experience> getAllExperiences() {
-        return experienceRepository.findAllByOrderByDisplayOrder();
+        return experienceDataProvider.findAllByOrderByDisplayOrder();
     }
 }
